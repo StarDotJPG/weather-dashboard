@@ -9,7 +9,6 @@ var getWeatherDataByCity = function (city, state, country) {
 
         // Check if response is OK and if it is, load response as json
         .then(response => {
-            console.log(response);
             if (response.ok) {
                 return response.json()
             } else {
@@ -17,9 +16,8 @@ var getWeatherDataByCity = function (city, state, country) {
             }
         })
 
-        // Check if we recieved geo coding data back and if we did, make a request to OneCallAPI
+        // Check if we recieved geo coding data back and if we did, make a request to OneCall API
         .then(geo => {
-            console.log(geo);
             if (geo != "" && geo != null) {
                 return fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + geo[0].lat + "&lon=" + geo[0].lon + "&units=imperial&appid=" + apiKey)
             } else {
@@ -36,25 +34,10 @@ var getWeatherDataByCity = function (city, state, country) {
             }
         })
 
-        // check if we recieved weather data back and if we did, display data in the console
+        // check if we recieved weather data back and if we did, display it to user
         .then(weather => {
-            console.log(weather);
             if (weather != "" && weather != null) {
-                return console.log( 
-                    "Current Weather Data: " + 
-                    "\nCity Name: " + city + 
-                    "\nTempurature: " + weather.current.temp + " \xB0F" +
-                    "\nWind Speed: " + weather.current.wind_speed + " MPH" +
-                    "\nHumidity: " + weather.current.humidity + "%" +
-                    "\nUV Index: " + weather.current.uvi +
-                    "\n" +
-                    "Five Day Forecast: " +
-                    //var d = new Date(1643745600 *1000)
-                    "\nDate: " + weather.daily[1].dt +
-                    "\nTemp: " + weather.daily[1].temp.day + 
-                    "\nWind: " + weather.daily[1].wind_speed +
-                    "\nHumidity: " + weather.daily[1].humidity +
-                    "\nCloudiness " + weather.daily[1].clouds)
+                return displayWeatherData(city, weather);
             }
         })
 
@@ -62,6 +45,32 @@ var getWeatherDataByCity = function (city, state, country) {
         .catch(function (error) {
             console.log(error);
         });
+}
+
+var displayWeatherData = function (city, weather) {
+    console.log(
+        "Current Weather Data: " +
+        "\nCity Name: " + city +
+        "\nTempurature: " + weather.current.temp + " \xB0F" +
+        "\nWind Speed: " + weather.current.wind_speed + " MPH" +
+        "\nHumidity: " + weather.current.humidity + "%" +
+        "\nUV Index: " + weather.current.uvi +
+        "\n\n")
+
+
+    console.log("Five Day Forecast: ")
+    // API data returns today's weather in the zeroth position, so we set i = 1 to get the forcast starting tomorrow
+    for (var i = 1; i < 6; i++) {
+        // API data returns the date in Unix seconds, but JavaScript date requires milliseconds, so need to * 1000
+        var day = new Date(weather.daily[i].dt * 1000)
+        console.log(
+            //JavaScript Date returns 0 for January, so need to add 1 to the month
+            "\nDate: " + (day.getMonth() + 1) + "/" + day.getDate() + "/" + day.getFullYear() +
+            "\nTemp: " + weather.daily[i].temp.day +
+            "\nWind: " + weather.daily[i].wind_speed +
+            "\nHumidity: " + weather.daily[i].humidity +
+            "\nCloudiness " + weather.daily[i].clouds)
+    }
 }
 
 getWeatherDataByCity("Sacramento", "CA", "US");
