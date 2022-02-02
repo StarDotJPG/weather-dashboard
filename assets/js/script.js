@@ -73,4 +73,4 @@ var displayWeatherData = function (city, weather) {
     }
 }
 
-getWeatherDataByCity("Sacramento", "CA", "US");
+//getWeatherDataByCity("Sacramento", "CA", "US");
