@@ -1,0 +1,11 @@
+.hero {
+    background-image: linear-gradient(to right, royalblue, indigo);
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.hero h1 {
+    font-weight: bold;
+    color: white;
+}

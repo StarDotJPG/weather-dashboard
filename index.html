@@ -6,71 +6,84 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
     <title>Document</title>
 </head>
 
 <body>
-    <header class="hero container align-items-center">
-        <div class="row">
-            <h1>Weather Dashboard</h1>
-        </div>
+    <header class="hero">
+        <h1>Weather Dashboard</h1>
     </header>
 
     <main class="container">
         <div class="row">
 
             <div class="search col-3">
-                <h2>Search for a city:</h2>
-                <input>
-                <button class="search-btn">Search</button>
+                <h2 class="font-weight-bold">Search for a city:</h2>
+                <input class="w-100 my-2">
+                <button class="search-btn btn btn-primary w-100 my-2 disabled">Search</button>
             </div>
 
             <div class="weather-data col">
                 <div class="container">
-                    <div class="current-weather row">
-                        <h2>City Name</h2>
-                        <i>Cloud Icon</i>
-                        <p>Current Weather</p>
-                        <p>Current Wind</p>
-                        <p>Current Humidity</p>
-                        <p>current uv index</p>
+                    <div class="current-weather row border border-dark ">
+                        <h2 class="font-weight-bold">City Name</h2>
+                        <i class="">Cloud Icon</i>
+                        <p class="w-100">Temp: </p>
+                        <p class="w-100">Wind: </p>
+                        <p class="w-100">Humidity: </p>
+                        <p class="w-100">UV Index: </p>
                     </div>
 
                     <div class="forecast-heading row">
-                        5 Day Forecast:
+                        <h3 class="font-weight-bold mt-3">5 Day Forecast:</h3>
                     </div>
 
                     <div class="forecast row">
 
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk
-                                    of the card's content.</p>
+                        <div class="card mr-3" style="width: 10rem;">
+                            <div class="card-body p-2 bg-dark text-white">
+                                <h5 class="card-title">3/31/2021</h5>
+                                <h6 class="card-subtitle text-muted">Icon</h6>
+                                <p class="card-text">Temp: 73.3 F</p>
+                                <p class="card-text">Wind: 9.53 MPH</p>
+                                <p class="card-text">Humidity: 66%</p>
                             </div>
                         </div>
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk
-                                    of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                        <div class="card mr-3" style="width: 10rem;">
+                            <div class="card-body p-2 bg-dark text-white">
+                                <h5 class="card-title">3/31/2021</h5>
+                                <h6 class="card-subtitle text-muted">Icon</h6>
+                                <p class="card-text">Temp: 73.3 F</p>
+                                <p class="card-text">Wind: 9.53 MPH</p>
+                                <p class="card-text">Humidity: 66%</p>
                             </div>
                         </div>
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk
-                                    of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                        <div class="card mr-3" style="width: 10rem;">
+                            <div class="card-body p-2 bg-dark text-white">
+                                <h5 class="card-title">3/31/2021</h5>
+                                <h6 class="card-subtitle text-muted">Icon</h6>
+                                <p class="card-text">Temp: 73.3 F</p>
+                                <p class="card-text">Wind: 9.53 MPH</p>
+                                <p class="card-text">Humidity: 66%</p>
+                            </div>
+                        </div>
+                        <div class="card mr-3" style="width: 10rem;">
+                            <div class="card-body p-2 bg-dark text-white">
+                                <h5 class="card-title">3/31/2021</h5>
+                                <h6 class="card-subtitle text-muted">Icon</h6>
+                                <p class="card-text">Temp: 73.3 F</p>
+                                <p class="card-text">Wind: 9.53 MPH</p>
+                                <p class="card-text">Humidity: 66%</p>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body p-2 bg-dark text-white">
+                                <h5 class="card-title">3/31/2021</h5>
+                                <h6 class="card-subtitle text-muted">Icon</h6>
+                                <p class="card-text">Temp: 73.3 F</p>
+                                <p class="card-text">Wind: 9.53 MPH</p>
+                                <p class="card-text">Humidity: 66%</p>
                             </div>
                         </div>
 
