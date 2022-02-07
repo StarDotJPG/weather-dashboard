@@ -6,12 +6,27 @@ var currentWind = document.getElementById("currentWind");
 var currentHumidity = document.getElementById("currentHumidity");
 var currentUVI = document.getElementById("currentUVI");
 var forecastRow = document.getElementById("forecast")
+var cityInput = document.getElementById("cityInput");
 
 var apiKey = "c2714403f6df43a525a25ab5790ea1a4";
 
-var getWeatherDataByCity = function (city, state, country) {
+var validateCityInput = function() {
+    getWeatherDataByCity(cityInput.value);
 
-    var geocodingApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "," + state + "," + country + "&appid=" + apiKey;
+}
+
+var updateSearchButtonState = function () {
+    if (cityInput.value.length > 0) {
+        searchButton.classList.remove("disabled");
+    }
+    if (cityInput.value.length == 0) {
+        searchButton.classList.add("disabled");
+    }
+}
+
+var getWeatherDataByCity = function (city) {
+
+    var geocodingApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
     // we have to get coordinates first, then get weather data
     // we will use fetch promise chaining to do this
     fetch(geocodingApiUrl) // request coordinates
@@ -85,6 +100,11 @@ var displayWeatherData = function (city, weather) {
 
 
     //Display the 5 day forecast
+    // First get rid of any previous forecasts
+    while (forecastRow.firstChild) {
+        forecastRow.removeChild(forecastRow.firstChild);
+      }
+
     // API data returns today's weather in the zeroth position, so we set i = 1 to get the forcast starting tomorrow
     for (var i = 1; i < 6; i++) {
 
@@ -129,4 +149,5 @@ var displayWeatherData = function (city, weather) {
     }
 }
 
-searchButton.addEventListener("click", function () { getWeatherDataByCity("Sacramento", "CA", "US") });
+cityInput.addEventListener("input", updateSearchButtonState);
+searchButton.addEventListener("click", validateCityInput);
