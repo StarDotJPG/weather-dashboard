@@ -9,3 +9,7 @@
     font-weight: bold;
     color: white;
 }
+
+.card-body {
+    background-color: #33475A;
+}

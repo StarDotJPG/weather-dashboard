@@ -1,3 +1,12 @@
+var searchButton = document.getElementById("search-btn");
+var cityName = document.getElementById("cityName");
+var currentTemp = document.getElementById("currentTemp");
+var currentWeatherIcon = document.getElementById("currentWeatherIcon");
+var currentWind = document.getElementById("currentWind");
+var currentHumidity = document.getElementById("currentHumidity");
+var currentUVI = document.getElementById("currentUVI");
+var forecastRow = document.getElementById("forecast")
+
 var apiKey = "c2714403f6df43a525a25ab5790ea1a4";
 
 var getWeatherDataByCity = function (city, state, country) {
@@ -48,29 +57,76 @@ var getWeatherDataByCity = function (city, state, country) {
 }
 
 var displayWeatherData = function (city, weather) {
-    console.log(
-        "Current Weather Data: " +
-        "\nCity Name: " + city +
-        "\nTempurature: " + weather.current.temp + " \xB0F" +
-        "\nWind Speed: " + weather.current.wind_speed + " MPH" +
-        "\nHumidity: " + weather.current.humidity + "%" +
-        "\nUV Index: " + weather.current.uvi +
-        "\n\n")
+
+    //Display the current day's weather information
+    cityName.textContent = city;
+    currentTemp.textContent = "Temp " + weather.current.temp + " \xB0F";
+    currentWeatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weather.current.weather[0].icon + ".png");
+    currentWeatherIcon.setAttribute("alt", weather.current.weather[0].description);
+    currentWeatherIcon.setAttribute("width", "40");
+    currentWeatherIcon.setAttribute("height", "40");
+    currentWind.textContent = "Wind: " + weather.current.wind_speed + " MPH";
+    currentHumidity.textContent = "Humidity: " + weather.current.humidity + "%";
+    
+    var uviBadgeColor = "";
+    //color code the UVI badge based on: https://www.cancer.org.au/blog/health-check-what-does-the-uv-index-mean
+    if (weather.current.uvi < 2 ) {
+        uviBadgeColor = "ForestGreen";
+    } else if (weather.current.uvi < 5 ) {
+        uviBadgeColor = "Gold"
+    } else if (weather.current.uvi < 7 ) {
+        uviBadgeColor = "Orange"
+    } else if (weather.current.uvi < 10 ) {
+        uviBadgeColor = "Orangered"
+    } else if (weather.current.uvi > 11 ) {
+        uviBadgeColor = "Purple"
+    }
+    currentUVI.innerHTML = "UV Index: <span class='badge badge-secondary px-3 py-1.5' style='background-color:" + uviBadgeColor + "'> " + weather.current.uvi + " </span>";
 
 
-    console.log("Five Day Forecast: ")
+    //Display the 5 day forecast
     // API data returns today's weather in the zeroth position, so we set i = 1 to get the forcast starting tomorrow
     for (var i = 1; i < 6; i++) {
+
+        //Using Bootstrap cards, so dynamically creating the card element
+        var card = document.createElement("div");
+        card.classList.add("card");
+        forecastRow.append(card);
+
+        var cardBody = document.createElement("div");
+        cardBody.classList.add("card-body");
+        cardBody.classList.add("text-white");
+        card.append(cardBody);
+
         // API data returns the date in Unix seconds, but JavaScript date requires milliseconds, so need to * 1000
         var day = new Date(weather.daily[i].dt * 1000)
-        console.log(
-            //JavaScript Date returns 0 for January, so need to add 1 to the month
-            "\nDate: " + (day.getMonth() + 1) + "/" + day.getDate() + "/" + day.getFullYear() +
-            "\nTemp: " + weather.daily[i].temp.day +
-            "\nWind: " + weather.daily[i].wind_speed +
-            "\nHumidity: " + weather.daily[i].humidity +
-            "\nCloudiness " + weather.daily[i].clouds)
+        var cardDate = document.createElement("h5");
+        cardDate.classList.add("card-title");
+        cardDate.textContent = (day.getMonth() + 1) + "/" + day.getDate() + "/" + day.getFullYear();
+        cardBody.append(cardDate);
+
+        var cardIcon = document.createElement("img");
+        cardIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weather.daily[i].weather[0].icon + ".png");
+        cardIcon.setAttribute("alt", weather.daily[i].weather[0].description);
+        cardIcon.setAttribute("width", "40");
+        cardIcon.setAttribute("height", "40");
+        cardBody.append(cardIcon);
+
+        var cardTemp = document.createElement("p");
+        cardTemp.classList.add("card-text");
+        cardTemp.textContent = "Temp: " + weather.daily[i].temp.day + " \xB0F";
+        cardBody.append(cardTemp);
+
+        var cardWind = document.createElement("p");
+        cardWind.classList.add("card-text");
+        cardWind.textContent = "Wind: " + weather.daily[i].wind_speed + " MPH";
+        cardBody.append(cardWind);
+
+        var cardHumidity = document.createElement("p");
+        cardHumidity.classList.add("card-text");
+        cardHumidity.textContent = "Humidity: " + weather.daily[i].humidity + " %";
+        cardBody.append(cardHumidity);
     }
 }
 
-//getWeatherDataByCity("Sacramento", "CA", "US");
+searchButton.addEventListener("click", function () { getWeatherDataByCity("Sacramento", "CA", "US") });
