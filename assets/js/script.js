@@ -7,12 +7,19 @@ var currentHumidity = document.getElementById("currentHumidity");
 var currentUVI = document.getElementById("currentUVI");
 var forecastRow = document.getElementById("forecast")
 var cityInput = document.getElementById("cityInput");
+var searchHistory = document.getElementById("search-history");
 
 var apiKey = "c2714403f6df43a525a25ab5790ea1a4";
 
-var validateCityInput = function() {
-    getWeatherDataByCity(cityInput.value);
+var searchedCities;
 
+var validateCityInput = function () {
+    getWeatherDataByCity(cityInput.value);
+    addToHistory(cityInput.value);
+
+    //Blank out last search
+    cityInput.value = "";
+    updateSearchButtonState();
 }
 
 var updateSearchButtonState = function () {
@@ -82,18 +89,18 @@ var displayWeatherData = function (city, weather) {
     currentWeatherIcon.setAttribute("height", "40");
     currentWind.textContent = "Wind: " + weather.current.wind_speed + " MPH";
     currentHumidity.textContent = "Humidity: " + weather.current.humidity + "%";
-    
+
     var uviBadgeColor = "";
     //color code the UVI badge based on: https://www.cancer.org.au/blog/health-check-what-does-the-uv-index-mean
-    if (weather.current.uvi < 2 ) {
+    if (weather.current.uvi < 2) {
         uviBadgeColor = "ForestGreen";
-    } else if (weather.current.uvi < 5 ) {
+    } else if (weather.current.uvi < 5) {
         uviBadgeColor = "Gold"
-    } else if (weather.current.uvi < 7 ) {
+    } else if (weather.current.uvi < 7) {
         uviBadgeColor = "Orange"
-    } else if (weather.current.uvi < 10 ) {
+    } else if (weather.current.uvi < 10) {
         uviBadgeColor = "Orangered"
-    } else if (weather.current.uvi > 11 ) {
+    } else if (weather.current.uvi > 11) {
         uviBadgeColor = "Purple"
     }
     currentUVI.innerHTML = "UV Index: <span class='badge badge-secondary px-3 py-1.5' style='background-color:" + uviBadgeColor + "'> " + weather.current.uvi + " </span>";
@@ -103,7 +110,7 @@ var displayWeatherData = function (city, weather) {
     // First get rid of any previous forecasts
     while (forecastRow.firstChild) {
         forecastRow.removeChild(forecastRow.firstChild);
-      }
+    }
 
     // API data returns today's weather in the zeroth position, so we set i = 1 to get the forcast starting tomorrow
     for (var i = 1; i < 6; i++) {
@@ -149,5 +156,41 @@ var displayWeatherData = function (city, weather) {
     }
 }
 
+var loadFromLocalStorage = function () {
+    searchedCities = JSON.parse(localStorage.getItem("searchedCities"));
+
+    for (var i = 0; i < searchedCities.length; i++) {
+        var historyButton = document.createElement("button");
+        historyButton.textContent = searchedCities[i];
+        historyButton.classList.add("btn");
+        historyButton.classList.add("btn-secondary");
+        historyButton.classList.add("w-100");
+        historyButton.classList.add("my-2");
+        searchHistory.append(historyButton);
+    }
+}
+
+var addToHistory = function (city) {
+    var historyButton = document.createElement("button");
+    historyButton.textContent = city;
+    historyButton.classList.add("btn");
+    historyButton.classList.add("btn-secondary");
+    historyButton.classList.add("w-100");
+    historyButton.classList.add("my-2");
+    searchHistory.append(historyButton);
+
+    // add new city to array and put the array back into local storage
+    searchedCities.push(city)
+    localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+}
+
+var searchHistoricalCity = function (event) {
+    if (event.target.tagName = "button") {
+        getWeatherDataByCity(event.target.textContent);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadFromLocalStorage);
 cityInput.addEventListener("input", updateSearchButtonState);
 searchButton.addEventListener("click", validateCityInput);
+searchHistory.addEventListener("click", searchHistoricalCity);

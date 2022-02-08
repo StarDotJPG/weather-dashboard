@@ -19,9 +19,13 @@
         <div class="row">
 
             <div class="search col-3">
-                <h2 class="font-weight-bold">Search for a city:</h2>
-                <input class="w-100 my-2" id="cityInput">
-                <button class="btn btn-primary w-100 my-2 disabled" id="search-btn">Search</button>
+                <div class="mb-2">
+                    <h2 class="font-weight-bold">Search for a city:</h2>
+                    <input class="form-control w-100 my-2" placeholder="Sacramento" id="cityInput">
+                    <button class="btn btn-primary w-100 my-2 disabled" id="search-btn">Search</button>
+                </div>
+                <div class="border-top border-dark pt-2" id="search-history">
+                </div>
             </div>
 
             <div class="weather-data col">
@@ -44,13 +48,15 @@
                     </div>
 
                 </div>
+
             </div>
-        </div>
 
         </div>
+
     </main>
-
+    
     <script src="assets/js/script.js"></script>
+    
 </body>
 
 </html>
