@@ -11,7 +11,7 @@ var searchHistory = document.getElementById("search-history");
 
 var apiKey = "c2714403f6df43a525a25ab5790ea1a4";
 
-var searchedCities;
+var searchedCities = [];
 
 var validateCityInput = function () {
     getWeatherDataByCity(cityInput.value);
@@ -157,16 +157,20 @@ var displayWeatherData = function (city, weather) {
 }
 
 var loadFromLocalStorage = function () {
-    searchedCities = JSON.parse(localStorage.getItem("searchedCities"));
-
-    for (var i = 0; i < searchedCities.length; i++) {
-        var historyButton = document.createElement("button");
-        historyButton.textContent = searchedCities[i];
-        historyButton.classList.add("btn");
-        historyButton.classList.add("btn-secondary");
-        historyButton.classList.add("w-100");
-        historyButton.classList.add("my-2");
-        searchHistory.append(historyButton);
+    // if there's some data in local storage, then get it and generate the history button elements
+    if (localStorage.getItem("searchedCities")) {
+        searchedCities = JSON.parse(localStorage.getItem("searchedCities"));
+        if (searchedCities) {
+            for (var i = 0; i < searchedCities.length; i++) {
+                var historyButton = document.createElement("button");
+                historyButton.textContent = searchedCities[i];
+                historyButton.classList.add("btn");
+                historyButton.classList.add("btn-secondary");
+                historyButton.classList.add("w-100");
+                historyButton.classList.add("my-2");
+                searchHistory.append(historyButton);
+            }
+        }
     }
 }
 
