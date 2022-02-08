@@ -83,7 +83,7 @@ var displayWeatherData = function (city, weather) {
     //Display the current day's weather information
     cityName.textContent = city;
     currentTemp.textContent = "Temp " + weather.current.temp + " \xB0F";
-    currentWeatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weather.current.weather[0].icon + ".png");
+    currentWeatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + weather.current.weather[0].icon + ".png");
     currentWeatherIcon.setAttribute("alt", weather.current.weather[0].description);
     currentWeatherIcon.setAttribute("width", "40");
     currentWeatherIcon.setAttribute("height", "40");
@@ -133,7 +133,7 @@ var displayWeatherData = function (city, weather) {
         cardBody.append(cardDate);
 
         var cardIcon = document.createElement("img");
-        cardIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weather.daily[i].weather[0].icon + ".png");
+        cardIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + weather.daily[i].weather[0].icon + ".png");
         cardIcon.setAttribute("alt", weather.daily[i].weather[0].description);
         cardIcon.setAttribute("width", "40");
         cardIcon.setAttribute("height", "40");
