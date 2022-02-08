@@ -33,7 +33,7 @@ var updateSearchButtonState = function () {
 
 var getWeatherDataByCity = function (city) {
 
-    var geocodingApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
+    var geocodingApiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
     // we have to get coordinates first, then get weather data
     // we will use fetch promise chaining to do this
     fetch(geocodingApiUrl) // request coordinates
