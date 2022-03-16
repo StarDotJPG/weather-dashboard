@@ -1,4 +1,4 @@
-# weather-dashboard-challenge
+# Weather Dashboard
 
 ## Purpose
 A simple website that pulls weather information from the OpenWeather API
