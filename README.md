@@ -9,7 +9,7 @@ A simple website that pulls weather information from the OpenWeather API
 * JavaScript
 
 ## Website
-https://stardotjpg.github.io/weather-dashboard-challenge/
+https://stardotjpg.github.io/weather-dashboard/
 
 ## Contribution
 Made with ❤️ by Jason Greenia
